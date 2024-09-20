@@ -386,6 +386,28 @@ Let’s look at the same example of `Product` and `Category` tables:
 
 So, while the table structure might look similar, the design philosophy, optimization, and use cases are what differentiate a **snowflake schema** from a **relational schema**.
 
+## Dimension Table Types
+
+There are several types of dimension tables in data warehousing, each serving specific purposes. The most common types are:
+
+1. **Conformed Dimension**: Shared across multiple fact tables or data marts in a data warehouse, ensuring consistency in reporting.
+   
+2. **Role-Playing Dimension**: A dimension table used multiple times in the same fact table for different purposes (e.g., Date dimension used as Order Date, Ship Date, etc.).
+
+3. **Slowly Changing Dimension (SCD)**: Deals with changes over time. Common types of SCD include:
+   - **SCD Type 1**: Overwrites old data with new data.
+   - **SCD Type 2**: Tracks historical data by creating a new row with versioning.
+   - **SCD Type 3**: Maintains limited historical data by adding new columns.
+
+4. **Junk Dimension**: Combines low-cardinality attributes (like flags, yes/no indicators) into a single dimension table to reduce the number of dimension tables.
+
+5. **Degenerate Dimension**: A dimension key in the fact table that does not have a separate dimension table (e.g., an invoice number or order number).
+
+6. **Inferred Dimension**: Temporary or placeholder dimension records created when a fact record arrives before the corresponding dimension data.
+
+7. **Outrigger Dimension**: A secondary dimension that is linked to another dimension rather than directly to the fact table.
+
+Each type is used based on specific data modeling needs and scenarios in a data warehouse.
 
 
 ### OLTP (Online Transaction Processing):
@@ -405,6 +427,7 @@ So, while the table structure might look similar, the design philosophy, optimiz
     - Denormalized (star schema) or partially normalized (snowflake schema) structures to facilitate efficient querying and aggregation.
     - Designed to handle large volumes of historical data for reporting and analysis.
     - Focus on read-heavy operations where the speed of complex queries is essential for generating business insights.
+
 
 ### Key Differences:
 
